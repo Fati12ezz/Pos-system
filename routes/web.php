@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Log;
@@ -7,6 +8,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/test', function () {
+    return view('test');
 });
 
 Route::get('/dashboard', function () {
@@ -31,3 +36,6 @@ Route::middleware([SetLocale::class])->get('/change-language/{lang}', function($
     Log::info("function ".session('locale'));
     return back()->with('locale', 'fr');// return to the previous page from where language changed by user
 })->name('change-language');
+
+
+Route::resource('/products', ProductController::class);
